@@ -13,8 +13,10 @@ class AdapterRecy(private val dataSet: ArrayList<ModelData>, context :Context) :
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
 
-        viewHolder.binding.tTitolo.text = dataSet[position].toString()
-        viewHolder.binding.tFrase.text = dataSet[position].toString()
+        viewHolder.binding.tTitolo.text = dataSet[position].titolo
+        viewHolder.binding.tFrase.text = dataSet[position].frase
+        viewHolder.binding.tAnno.text=dataSet[position].anno.toString()
+        viewHolder.binding.tAutore.text=dataSet[position].autore
 
 
     }
@@ -26,6 +28,13 @@ class AdapterRecy(private val dataSet: ArrayList<ModelData>, context :Context) :
         val binding = ItemListBinding
             .inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
+    }
+
+
+
+    fun delate(i:Int){
+        dataSet.removeAt(i)
+        notifyDataSetChanged()
     }
 
 }
