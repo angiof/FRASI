@@ -1,4 +1,4 @@
-package com.example.frasi.ui.recy
+package com.example.frasi.ui.views.recy
 
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView

@@ -1,14 +1,11 @@
-package com.example.frasi.ui.dashboard
+package com.example.frasi.ui.views.fragments.dashboard
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.example.frasi.R
 import com.example.frasi.databinding.FragmentDashboardBinding
 
 class DashboardFragment : Fragment() {

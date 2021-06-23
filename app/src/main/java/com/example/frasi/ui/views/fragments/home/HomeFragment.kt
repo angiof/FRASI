@@ -1,4 +1,4 @@
-package com.example.frasi.ui.home
+package com.example.frasi.ui.views.fragments.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,9 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.frasi.databinding.FragmentHomeBinding
-import com.example.frasi.ui.recy.AdapterRecy
-import com.example.frasi.ui.recy.ModelData
-import com.example.frasi.ui.recy.SwipeGestures
+import com.example.frasi.ui.views.recy.AdapterRecy
+import com.example.frasi.ui.views.recy.ModelData
+import com.example.frasi.ui.views.recy.SwipeGestures
 
 class HomeFragment : Fragment() {
 
