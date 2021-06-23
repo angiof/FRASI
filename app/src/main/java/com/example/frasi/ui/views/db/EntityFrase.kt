@@ -1,4 +1,4 @@
-package com.example.frasi.ui.views.models
+package com.example.frasi.ui.views.db
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

@@ -5,10 +5,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.frasi.databinding.ItemListBinding
-import com.example.frasi.ui.views.models.EntityFrase
+import com.example.frasi.ui.views.db.EntityFrase
 
-class AdapterRecy(private var dataSet: ArrayList<EntityFrase>, context :Context) :
+class AdapterRecy(context:Context) :
     RecyclerView.Adapter<AdapterRecy.ViewHolder>() {
+
+     var dataSet= ArrayList<EntityFrase>()
 
 
 

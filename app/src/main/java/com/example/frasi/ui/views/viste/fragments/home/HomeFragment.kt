@@ -7,21 +7,17 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
-import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.frasi.databinding.FragmentHomeBinding
-import com.example.frasi.ui.views.models.EntityFrase
+import com.example.frasi.ui.views.db.EntityFrase
 import com.example.frasi.ui.views.viewmodels.FrasiViewModel
 import com.example.frasi.ui.views.viste.recy.AdapterRecy
-import com.example.frasi.ui.views.viste.recy.ModelData
 import com.example.frasi.ui.views.viste.recy.SwipeGestures
 
-
-class HomeFragment : Fragment() {
+class HomeFragment: Fragment() {
 
     lateinit var binding: FragmentHomeBinding
     lateinit var adapterRecy: AdapterRecy
@@ -32,40 +28,21 @@ class HomeFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-
-
-
-        viewModel = ViewModelProvider(requireActivity()).get(FrasiViewModel::class.java)
-        viewModel.frasi.observe(requireActivity(),Observer{
-
-
-
-        })
-
-
-        val data: ArrayList<ModelData> = ArrayList()
-
-        data.add(ModelData("le query", " una relazione n-n ti puo cambiare la vita  ", 2021))
-        data.add(ModelData("le query", " una relazione n-n ti puo cambiare la vita  ", 2021))
-        data.add(ModelData("le query", " una relazione n-n ti puo cambiare la vita  ", 2021))
-        data.add(ModelData("le query", " una relazione n-n ti puo cambiare la vita  ", 2021, "angelo")
-        )
+        container: ViewGroup ? ,
+        savedInstanceState : Bundle ?
+    ): View ? {
 
         binding = FragmentHomeBinding.inflate(layoutInflater)
-        with(binding) {
 
-             adapterRecy = AdapterRecy(data, requireContext())
+        with(binding.recy) {
 
-            recy.adapter = adapterRecy
+            setHasFixedSize(true)
+            adapterRecy = AdapterRecy(requireContext())
 
-
-            val swipe= object : SwipeGestures() {
-
+            adapter = adapterRecy
+            val swipe = object: SwipeGestures() {
                 override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                    when (direction) {
+                    when(direction) {
                         ItemTouchHelper.LEFT -> {
                             adapterRecy.delate(viewHolder.adapterPosition)
                             Toast.makeText(requireContext(), "mosso", Toast.LENGTH_LONG).show()
@@ -74,11 +51,24 @@ class HomeFragment : Fragment() {
                     super.onSwiped(viewHolder, direction)
                 }
             }
-            val tocco=ItemTouchHelper(swipe)
-            tocco.attachToRecyclerView(recy)
-
-
+            val tocco = ItemTouchHelper(swipe)
+            tocco.attachToRecyclerView(this)
         }
+
+        viewModel =  ViewModelProvider(requireActivity()).get(FrasiViewModel::class.java)
+        viewModel.frasi.observe(requireActivity(), {
+            adapterRecy.setListData(ArrayList(it))
+            adapterRecy.notifyDataSetChanged()
+        })
+
+        inserimento()
+
+
         return binding.root
+    }
+
+    fun inserimento(){
+
+        viewModel.insert(EntityFrase(0,"dd","dd","ddd",11))
     }
 }

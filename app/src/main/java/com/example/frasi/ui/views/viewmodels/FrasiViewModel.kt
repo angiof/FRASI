@@ -1,24 +1,29 @@
 package com.example.frasi.ui.views.viewmodels
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.frasi.ui.views.models.EntityFrase
+import com.example.frasi.ui.views.db.EntityFrase
 import com.example.frasi.ui.views.repo.Repositorio
 import kotlinx.coroutines.launch
 
-class FrasiViewModel(private val respository: Repositorio) : ViewModel() {
+class FrasiViewModel (application: Application) : AndroidViewModel(application){
+
+    private val respository: Repositorio=Repositorio(application)
 
 
     val frasi: LiveData<List<EntityFrase>> = respository.ParoleInOrdine
 
+    val ordineAnno: LiveData<List<EntityFrase>> = respository.FrasiPerAnno
+
     //in quale ambito lanciare questa curotines
-    fun insert(frase: EntityFrase)=viewModelScope.launch {
+    fun insert(frase: EntityFrase) = viewModelScope.launch {
 
         respository.insert(frase)
 
     }
-
 
 
 }
