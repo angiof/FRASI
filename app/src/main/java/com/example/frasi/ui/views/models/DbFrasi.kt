@@ -1,11 +1,11 @@
-package com.example.frasi.ui.views.db
+package com.example.frasi.ui.views.models
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = arrayOf(EntityFrase::class), version = 1, exportSchema = false)
+@Database(entities = [EntityFrase::class], version = 1, exportSchema = false)
 public abstract class dbFrasi : RoomDatabase() {
 
     abstract fun wordDao(): DaoFrasi
@@ -23,7 +23,7 @@ public abstract class dbFrasi : RoomDatabase() {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     dbFrasi::class.java,
-                    "word_database"
+                    "frasi"
                 ).build()
                 INSTANCE = instance
                 // return instance

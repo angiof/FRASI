@@ -76,15 +76,16 @@ dependencies {
     // optional - Test helpers
     testImplementation "androidx.room:room-testing:$room_version"
     //life curotines
-    def lifecycle_version = "2.3.1"
+    def lifecycle_version = "2.2.0"
 
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
     //texview
     implementation 'com.google.android.material:material:1.1.0'
-
+//lottie
     implementation 'com.airbnb.android:lottie:3.7.0'
 
-
+    //live data
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0"
 
 
 }

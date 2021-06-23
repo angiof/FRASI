@@ -1,4 +1,4 @@
-package com.example.frasi.ui.views.fragments.dashboard
+package com.example.frasi.ui.views.viste.fragments.dashboard
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

@@ -1,4 +1,4 @@
-package com.example.frasi.ui.views.activities
+package com.example.frasi.ui.views.viste.activities
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

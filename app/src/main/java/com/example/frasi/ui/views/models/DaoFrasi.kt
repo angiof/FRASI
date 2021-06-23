@@ -1,5 +1,6 @@
-package com.example.frasi.ui.views.db
+package com.example.frasi.ui.views.models
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -11,8 +12,7 @@ interface DaoFrasi {
 
 
     @Query("select * from  frasi order by autore asc")
-    suspend fun ordineAlfa(): Flow<List<EntityFrase>>
-
+     fun ordineAlfa(): LiveData<List<EntityFrase>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(entityFrase: EntityFrase)

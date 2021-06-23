@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FRASI">
-        <activity android:name=".ui.views.activities.Intro">
+        <activity android:name="com.example.frasi.ui.views.viste.activities.Intro">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -17,7 +17,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.views.activities.MainActivity"
+            android:name="com.example.frasi.ui.views.viste.activities.MainActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

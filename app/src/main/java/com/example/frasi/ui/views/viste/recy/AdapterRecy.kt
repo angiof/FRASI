@@ -1,4 +1,4 @@
-package com.example.frasi.ui.views.recy
+package com.example.frasi.ui.views.viste.recy
 
 import android.content.Context
 import android.view.LayoutInflater

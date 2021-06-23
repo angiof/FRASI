@@ -1,4 +1,4 @@
-package com.example.frasi.ui.views.fragments.dashboard
+package com.example.frasi.ui.views.viste.fragments.dashboard
 
 import android.os.Bundle
 import android.view.LayoutInflater

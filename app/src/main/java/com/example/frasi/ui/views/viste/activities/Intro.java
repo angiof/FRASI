@@ -1,4 +1,4 @@
-package com.example.frasi.ui.views.activities;
+package com.example.frasi.ui.views.viste.activities;
 
 import android.animation.Animator;
 import android.content.Intent;
