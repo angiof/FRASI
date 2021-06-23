@@ -9,9 +9,10 @@ import kotlinx.coroutines.launch
 
 class FrasiViewModel(private val respository: Repositorio) : ViewModel() {
 
+
     val frasi: LiveData<List<EntityFrase>> = respository.ParoleInOrdine
 
-
+    //in quale ambito lanciare questa curotines
     fun insert(frase: EntityFrase)=viewModelScope.launch {
 
         respository.insert(frase)

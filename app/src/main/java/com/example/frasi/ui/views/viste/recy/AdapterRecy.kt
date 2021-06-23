@@ -5,9 +5,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.frasi.databinding.ItemListBinding
+import com.example.frasi.ui.views.models.EntityFrase
 
-class AdapterRecy(private val dataSet: ArrayList<ModelData>, context :Context) :
+class AdapterRecy(private var dataSet: ArrayList<EntityFrase>, context :Context) :
     RecyclerView.Adapter<AdapterRecy.ViewHolder>() {
+
+
 
     inner class ViewHolder(val binding: ItemListBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -35,6 +38,10 @@ class AdapterRecy(private val dataSet: ArrayList<ModelData>, context :Context) :
     fun delate(i:Int){
         dataSet.removeAt(i)
         notifyDataSetChanged()
+    }
+
+    fun setListData(data: ArrayList<EntityFrase>) {
+        this.dataSet = data
     }
 
 }
