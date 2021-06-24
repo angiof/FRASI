@@ -7,7 +7,7 @@
 
     android:layout_height="match_parent">
 
-    <EditText
+    <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/t_frase"
         android:layout_width="396dp"
         android:layout_height="198dp"
@@ -46,6 +46,8 @@
         app:layout_constraintTop_toBottomOf="@+id/t_titolo" />
 
     <EditText
+        app:layout_constraintDimensionRatio="H,4:3"
+
         android:id="@+id/t_anno"
         android:hint="anno"
         android:layout_width="wrap_content"

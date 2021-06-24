@@ -2,6 +2,7 @@ package com.example.frasi.ui.views.repo
 
 import android.app.Application
 import android.content.Context
+import android.media.MediaParser
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
 import com.example.frasi.ui.views.db.DaoFrasi
@@ -22,10 +23,6 @@ class Repositorio(context: Context) {
 
 
 
-
-
-
-
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun insert(entityFrase: EntityFrase) {
@@ -38,6 +35,13 @@ class Repositorio(context: Context) {
 
     suspend fun  update(entityFrase: EntityFrase){
         daoFrasi.updateFrasi(entityFrase)
+    }
+
+
+     fun TrackFrasi(string: String):LiveData<List<EntityFrase>>{
+
+        return  daoFrasi.cercaFrase(string)
+
     }
 
 

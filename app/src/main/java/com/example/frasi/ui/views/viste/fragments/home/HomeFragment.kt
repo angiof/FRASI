@@ -6,20 +6,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.ItemTouchHelper
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.bottomsheets.BottomSheet
 import com.afollestad.materialdialogs.customview.customView
 import com.example.frasi.R
 import com.example.frasi.databinding.ButtonDialogsBinding
 import com.example.frasi.databinding.FragmentHomeBinding
-import com.example.frasi.databinding.ItemListBinding
 import com.example.frasi.ui.views.db.EntityFrase
 import com.example.frasi.ui.views.viewmodels.FrasiViewModel
 import com.example.frasi.ui.views.viste.recy.AdapterRecy
-import com.example.frasi.ui.views.viste.recy.SwipeGestures
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -85,11 +83,23 @@ class HomeFragment : Fragment() {
             }
         })
         viewModel = ViewModelProvider(requireActivity()).get(FrasiViewModel::class.java)
-        viewModel.frasi.observe(requireActivity(), {
+
+
+        val finderText=binding.finder
+
+        finderText.addTextChangedListener {
+            x->viewModel.aggiorna(x.toString())
+        }
+
+
+
+
+        viewModel.frasiTrack.observe(requireActivity(), {
 
             adapterRecy.setListData(ArrayList(it))
             adapterRecy.notifyDataSetChanged()
         })
+
 
         binding.floatingActionButton.setOnClickListener {
             buttonDialogsBinding = ButtonDialogsBinding.inflate(layoutInflater)
@@ -130,4 +140,12 @@ class HomeFragment : Fragment() {
         viewModel.insert(EntityFrase(0, eAutore, eTitolo, eFrase, eAnno))
 
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        viewModel.aggiorna("")
+    }
+
+
+
 }

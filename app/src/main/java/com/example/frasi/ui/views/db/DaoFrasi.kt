@@ -8,7 +8,7 @@ interface DaoFrasi {
 
 
     @Query("select * from  frasi order by autore asc")
-     fun ordineAlfa(): LiveData<List<EntityFrase>>
+    fun ordineAlfa(): LiveData<List<EntityFrase>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(entityFrase: EntityFrase)
@@ -16,15 +16,15 @@ interface DaoFrasi {
     @Query("select * from  frasi order by anno asc")
     fun ordineAnno(): LiveData<List<EntityFrase>>
 
-
     @Delete
     fun deleteEvent(frase: EntityFrase)
-
-
 
     @Update
     fun updateFrasi(frase: EntityFrase)
 
+
+    @Query("SELECT * FROM frasi WHERE frase LIKE '%' || :string || '%' ")
+     fun cercaFrase(string: String): LiveData<List<EntityFrase>>
 
 
 }
