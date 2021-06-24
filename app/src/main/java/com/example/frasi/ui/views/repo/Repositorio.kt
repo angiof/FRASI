@@ -16,15 +16,21 @@ class Repositorio(context: Context) {
     //rom esegue tutte le query in file tread separati
     //il livedata notifichera l-observer quando cambia
 
-    val ParoleInOrdine: LiveData<List<EntityFrase>> = daoFrasi.ordineAlfa()
+    val paroleInOrdine: LiveData<List<EntityFrase>> = daoFrasi.ordineAlfa()
 
-    val FrasiPerAnno:LiveData<List<EntityFrase>> =daoFrasi.ordineAnno()
+    val frasiPerAnno:LiveData<List<EntityFrase>> =daoFrasi.ordineAnno()
+
+
+
+
+
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun insert(entityFrase: EntityFrase) {
         daoFrasi.insert(entityFrase)
     }
+
 
 
 
