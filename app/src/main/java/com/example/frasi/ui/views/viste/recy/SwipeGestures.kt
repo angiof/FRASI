@@ -13,6 +13,6 @@ import androidx.recyclerview.widget.RecyclerView
         return true
     }
 
-    override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+    override  fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
     }
 }

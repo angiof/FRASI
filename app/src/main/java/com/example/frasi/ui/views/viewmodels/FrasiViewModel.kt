@@ -3,9 +3,7 @@ package com.example.frasi.ui.views.viewmodels
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.frasi.ui.views.db.DaoFrasi
 import com.example.frasi.ui.views.db.EntityFrase
 import com.example.frasi.ui.views.repo.Repositorio
 import kotlinx.coroutines.launch
@@ -26,6 +24,12 @@ class FrasiViewModel (application: Application) : AndroidViewModel(application){
         respository.insert(frase)
 
     }
+
+    suspend fun delate(frase: EntityFrase) {
+
+        respository.delete(frase)
+    }
+
 
 
 }
