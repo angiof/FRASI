@@ -30,6 +30,10 @@ class FrasiViewModel (application: Application) : AndroidViewModel(application){
         respository.delete(frase)
     }
 
+    suspend fun update(frase: EntityFrase){
+        respository.update(frase)
+    }
+
 
 
 }

@@ -3,7 +3,6 @@ package com.example.frasi.ui.views.viste.recy
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.frasi.databinding.ItemListBinding
 import com.example.frasi.ui.views.db.EntityFrase
@@ -36,16 +35,17 @@ class AdapterRecy(val context: Context, val onFraseClickedListener: OnFraseClick
         }
 
 
-            viewHolder.binding.cardView.setOnLongClickListener {
+        viewHolder.binding.cardView.setOnLongClickListener {
 
-                GlobalScope.launch {
-                    onFraseClickedListener.onLongClicked(dataSet[position])
+            GlobalScope.launch {
+                onFraseClickedListener.onLongClicked(dataSet[position])
 
-                }
-                return@setOnLongClickListener true
+            }
+            return@setOnLongClickListener true
 
         }
     }
+
     override fun getItemCount() = dataSet.size
 
 

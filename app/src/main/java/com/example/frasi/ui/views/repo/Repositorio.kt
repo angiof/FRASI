@@ -24,6 +24,8 @@ class Repositorio(context: Context) {
 
 
 
+
+
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun insert(entityFrase: EntityFrase) {
@@ -32,6 +34,10 @@ class Repositorio(context: Context) {
 
     suspend fun delete(entityFrase: EntityFrase){
         daoFrasi.deleteEvent(entityFrase)
+    }
+
+    suspend fun  update(entityFrase: EntityFrase){
+        daoFrasi.updateFrasi(entityFrase)
     }
 
 

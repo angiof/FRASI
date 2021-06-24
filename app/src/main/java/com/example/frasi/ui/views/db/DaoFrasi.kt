@@ -22,5 +22,9 @@ interface DaoFrasi {
 
 
 
+    @Update
+    fun updateFrasi(frase: EntityFrase)
+
+
 
 }

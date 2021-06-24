@@ -6,13 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.bottomsheets.BottomSheet
 import com.afollestad.materialdialogs.customview.customView
+import com.example.frasi.R
 import com.example.frasi.databinding.ButtonDialogsBinding
 import com.example.frasi.databinding.FragmentHomeBinding
 import com.example.frasi.databinding.ItemListBinding
@@ -33,7 +33,7 @@ class HomeFragment : Fragment() {
     lateinit var buttonDialogsBinding: ButtonDialogsBinding
     lateinit var tocco: ItemTouchHelper
     lateinit var swipe: SwipeGestures
-    lateinit var buttonDialogModifi: ButtonDialogsBinding
+    lateinit var bindinBtnMod: ButtonDialogsBinding
     lateinit var itemListBinding: ItemListBinding
 
 
@@ -77,36 +77,56 @@ class HomeFragment : Fragment() {
             setHasFixedSize(true)
 
             GlobalScope.launch {
-                adapterRecy =
-                    AdapterRecy(requireContext(), object : AdapterRecy.OnFraseClickedListener {
+                adapterRecy = AdapterRecy(requireContext(), object : AdapterRecy.OnFraseClickedListener {
                         override suspend fun onClicked(item: EntityFrase) {
                             viewModel.delate(item)
                         }
 
                         override suspend fun onLongClicked(item: EntityFrase) {
 
-                            withContext(Dispatchers.Main){
-                                buttonDialogModifi= ButtonDialogsBinding.inflate(layoutInflater)
-                                val buttonMod = MaterialDialog(requireContext(), BottomSheet()).show {
-                                    cornerRadius(16f)
-                                    customView(view = buttonDialogModifi.root, scrollable = true)
+                            withContext(Dispatchers.Main) {
+                                bindinBtnMod = ButtonDialogsBinding.inflate(layoutInflater)
+                                val buttonMod =
+                                    MaterialDialog(requireContext(), BottomSheet()).show {
+                                        cornerRadius(16f)
+                                        customView(view = bindinBtnMod.root, scrollable = true)
 
-                                    setTitle("moficiare")
+                                        title(R.string.titolo_modifica)
 
-                                    positiveButton {
+                                        bindinBtnMod.tTitolo.setText(item.titolo)
+                                        bindinBtnMod.tAutore.setText(item.autore)
+                                        bindinBtnMod.tFrase.setText(item.frase)
+                                        bindinBtnMod.tAnno.setText(item.anno.toString())
 
-                                    }
-                                    dismiss()
+                                        //getter dei campi
 
-                                    negativeButton {
+
+                                        positiveButton {
+                                            val id=item.id
+                                            val titolo:String=bindinBtnMod.tTitolo.text.toString()
+                                            val autore:String=bindinBtnMod.tAutore.text.toString()
+                                            val frase:String=bindinBtnMod.tFrase.text.toString()
+                                            val anno:Int=bindinBtnMod.tAnno.text.toString().toInt()
+                                            Log.d("au","$autore")
+
+
+                                             var fraseUpdate = ArrayList<EntityFrase>()
+
+                                            GlobalScope.launch {
+
+                                            viewModel.update(EntityFrase(id,autore, titolo, frase, anno))
+                                            }
+
+                                        }
                                         dismiss()
 
+                                        negativeButton {
+                                            dismiss()
+
+                                        }
+
                                     }
-
-                                }
                             }
-
-
 
 
                         }
