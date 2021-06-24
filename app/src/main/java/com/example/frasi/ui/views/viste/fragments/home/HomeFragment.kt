@@ -27,18 +27,11 @@ import kotlinx.coroutines.withContext
 
 class HomeFragment : Fragment() {
 
-    lateinit var binding: FragmentHomeBinding
-    lateinit var adapterRecy: AdapterRecy
+    private lateinit var binding: FragmentHomeBinding
+    private lateinit var adapterRecy: AdapterRecy
     private lateinit var viewModel: FrasiViewModel
-    lateinit var buttonDialogsBinding: ButtonDialogsBinding
-    lateinit var tocco: ItemTouchHelper
-    lateinit var swipe: SwipeGestures
+    private lateinit var buttonDialogsBinding: ButtonDialogsBinding
     lateinit var bindinBtnMod: ButtonDialogsBinding
-    lateinit var itemListBinding: ItemListBinding
-
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,12 +40,57 @@ class HomeFragment : Fragment() {
     ): View? {
 
         binding = FragmentHomeBinding.inflate(layoutInflater)
+        adapterRecy = AdapterRecy(requireContext(), object : AdapterRecy.OnFraseClickedListener {
 
+
+            override suspend fun onClicked(item: EntityFrase) {
+                viewModel.delate(item)
+            }
+
+            override suspend fun onLongClicked(item: EntityFrase) {
+                withContext(Dispatchers.Main) {
+                    bindinBtnMod = ButtonDialogsBinding.inflate(layoutInflater)
+                    val buttonMod =
+                        MaterialDialog(requireContext(), BottomSheet()).show {
+                            cornerRadius(16f)
+                            customView(view = bindinBtnMod.root, scrollable = true)
+
+                            title(R.string.titolo_modifica)
+
+                            bindinBtnMod.tTitolo.setText(item.titolo)
+                            bindinBtnMod.tAutore.setText(item.autore)
+                            bindinBtnMod.tFrase.setText(item.frase)
+                            bindinBtnMod.tAnno.setText(item.anno.toString())
+
+                            //getter dei campi
+
+                            positiveButton {
+                                val id=item.id
+                                val titolo:String=bindinBtnMod.tTitolo.text.toString()
+                                val autore:String=bindinBtnMod.tAutore.text.toString()
+                                val frase:String=bindinBtnMod.tFrase.text.toString()
+                                val anno:Int=bindinBtnMod.tAnno.text.toString().toInt()
+                                Log.d("au","$autore")
+
+                                GlobalScope.launch {
+                                    viewModel.update(EntityFrase(id,autore, titolo, frase, anno))
+                                }
+                            }
+                            dismiss()
+                            negativeButton {
+                                dismiss()
+                            }
+                        }
+                }
+            }
+        })
         viewModel = ViewModelProvider(requireActivity()).get(FrasiViewModel::class.java)
         viewModel.frasi.observe(requireActivity(), {
+
             adapterRecy.setListData(ArrayList(it))
             adapterRecy.notifyDataSetChanged()
         })
+
         binding.floatingActionButton.setOnClickListener {
             buttonDialogsBinding = ButtonDialogsBinding.inflate(layoutInflater)
             val dialog = MaterialDialog(requireContext(), BottomSheet()).show {
@@ -72,70 +110,13 @@ class HomeFragment : Fragment() {
             }
 
         }
-
         with(binding.recy) {
             setHasFixedSize(true)
-
-            GlobalScope.launch {
-                adapterRecy = AdapterRecy(requireContext(), object : AdapterRecy.OnFraseClickedListener {
-                        override suspend fun onClicked(item: EntityFrase) {
-                            viewModel.delate(item)
-                        }
-
-                        override suspend fun onLongClicked(item: EntityFrase) {
-
-                            withContext(Dispatchers.Main) {
-                                bindinBtnMod = ButtonDialogsBinding.inflate(layoutInflater)
-                                val buttonMod =
-                                    MaterialDialog(requireContext(), BottomSheet()).show {
-                                        cornerRadius(16f)
-                                        customView(view = bindinBtnMod.root, scrollable = true)
-
-                                        title(R.string.titolo_modifica)
-
-                                        bindinBtnMod.tTitolo.setText(item.titolo)
-                                        bindinBtnMod.tAutore.setText(item.autore)
-                                        bindinBtnMod.tFrase.setText(item.frase)
-                                        bindinBtnMod.tAnno.setText(item.anno.toString())
-
-                                        //getter dei campi
-
-
-                                        positiveButton {
-                                            val id=item.id
-                                            val titolo:String=bindinBtnMod.tTitolo.text.toString()
-                                            val autore:String=bindinBtnMod.tAutore.text.toString()
-                                            val frase:String=bindinBtnMod.tFrase.text.toString()
-                                            val anno:Int=bindinBtnMod.tAnno.text.toString().toInt()
-                                            Log.d("au","$autore")
-
-
-                                             var fraseUpdate = ArrayList<EntityFrase>()
-
-                                            GlobalScope.launch {
-
-                                            viewModel.update(EntityFrase(id,autore, titolo, frase, anno))
-                                            }
-
-                                        }
-                                        dismiss()
-
-                                        negativeButton {
-                                            dismiss()
-
-                                        }
-
-                                    }
-                            }
-
-
-                        }
-                    })
-                adapter = adapterRecy
-            }
-
+            adapter = adapterRecy
         }
+
         return binding.root
+
     }
 
     private fun inserimento(titolo: EditText, autore: EditText, frase: EditText, anno: EditText) {
@@ -146,10 +127,7 @@ class HomeFragment : Fragment() {
         var eFrase: String = buttonDialogsBinding.tFrase.text.toString()
         var eAnno: Int = buttonDialogsBinding.tAnno.text.toString().toInt()
 
-
-
         viewModel.insert(EntityFrase(0, eAutore, eTitolo, eFrase, eAnno))
-
 
     }
 }
