@@ -4,4 +4,5 @@
     <string name="title_dashboard">info</string>
     <string name="titolo_modifica">modifica</string>
     <string name="title_notifications">Notifications</string>
+    <string name="label">label</string>
 </resources>

@@ -9,6 +9,7 @@ import android.widget.EditText
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.bottomsheets.BottomSheet
 import com.afollestad.materialdialogs.customview.customView
@@ -37,12 +38,29 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+
+
+
+
+
         binding = FragmentHomeBinding.inflate(layoutInflater)
+
+        val view=inflater.inflate(R.layout.fragment_home,container,false)
+
+
+
+
+
+
         adapterRecy = AdapterRecy(requireContext(), object : AdapterRecy.OnFraseClickedListener {
 
-
             override suspend fun onClicked(item: EntityFrase) {
-                viewModel.delate(item)
+                requireActivity().runOnUiThread {
+
+                    val action = HomeFragmentDirections.actionNavigationHomeToNavigationDashboard2(item.anno,item.titolo)
+
+                requireView().findNavController().navigate(action)
+                }
             }
 
             override suspend fun onLongClicked(item: EntityFrase) {
@@ -104,6 +122,7 @@ class HomeFragment : Fragment() {
         binding.floatingActionButton.setOnClickListener {
             buttonDialogsBinding = ButtonDialogsBinding.inflate(layoutInflater)
             val dialog = MaterialDialog(requireContext(), BottomSheet()).show {
+
                 cornerRadius(16f)
                 customView(view = buttonDialogsBinding.root, scrollable = true)
                 positiveButton {

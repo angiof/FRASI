@@ -1,4 +1,4 @@
-package com.example.frasi.ui.views.viste.recy
+ package com.example.frasi.ui.views.viste.recy
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -9,8 +9,7 @@ import com.example.frasi.ui.views.db.EntityFrase
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class AdapterRecy(val context: Context, val onFraseClickedListener: OnFraseClickedListener) :
-    RecyclerView.Adapter<AdapterRecy.ViewHolder>() {
+class AdapterRecy(val context: Context, val onFraseClickedListener: OnFraseClickedListener) : RecyclerView.Adapter<AdapterRecy.ViewHolder>() {
 
     private var dataSet = ArrayList<EntityFrase>()
 
@@ -24,16 +23,13 @@ class AdapterRecy(val context: Context, val onFraseClickedListener: OnFraseClick
         viewHolder.binding.tAnno.text = dataSet[position].anno.toString()
         viewHolder.binding.tAutore.text = dataSet[position].autore
 
-
         viewHolder.binding.cardView.setOnClickListener {
 
             GlobalScope.launch {
 
                 onFraseClickedListener.onClicked(dataSet[position])
-
             }
         }
-
 
         viewHolder.binding.cardView.setOnLongClickListener {
 
@@ -59,8 +55,6 @@ class AdapterRecy(val context: Context, val onFraseClickedListener: OnFraseClick
     fun setListData(data: ArrayList<EntityFrase>) {
         this.dataSet = data
     }
-
-
 
 
     interface OnFraseClickedListener {

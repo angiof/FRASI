@@ -5,35 +5,34 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.navArgs
+import com.example.frasi.R
 import com.example.frasi.databinding.FragmentDashboardBinding
+import com.example.frasi.ui.views.viste.fragments.home.HomeFragment
 
 class DashboardFragment : Fragment() {
+    val args : DashboardFragmentArgs by navArgs()
+    private var binding: FragmentDashboardBinding? = null
 
-    private lateinit var dashboardViewModel: DashboardViewModel
-    private var _binding: FragmentDashboardBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        dashboardViewModel =
-            ViewModelProvider(this).get(DashboardViewModel::class.java)
-
-        _binding = FragmentDashboardBinding.inflate(inflater, container, false)
-        val root: View = binding.root
+    ): View {
 
 
-        return root
+        binding = FragmentDashboardBinding.inflate(layoutInflater)
+
+        with(binding){
+
+            this!!.tReciver.text=args.myArg.toString()
+            this!!.tReciver2.text=args.titoloFromHome.toString()
+        }
+
+
+        return binding!!.root
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
+
 }

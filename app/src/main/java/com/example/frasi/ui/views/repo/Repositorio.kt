@@ -43,9 +43,4 @@ class Repositorio(context: Context) {
         return  daoFrasi.cercaFrase(string)
 
     }
-
-
-
-
-
 }
